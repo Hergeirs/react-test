@@ -95,6 +95,7 @@ function getRandomNumbers(amountNumbers, from=Number.MIN_VALUE, to=Number.MAX_VA
 function getRandomImageSrc(amount) {
   let imgs = [];
   let randomNumbers = getRandomNumbers(amount,1,amountImages,true);
+  console.log(randomNumbers);
   for (let i in randomNumbers) {
     imgs.push(imagePath + randomNumbers[i] + ".png");
   }
@@ -147,8 +148,8 @@ let amountPairs=0;
 function prePareGame(rows=3, columns=4) {
   /* choosing random images from imageFolder */
   amountPairs = (rows*columns)/2;
+  console.log("Getting "+amountPairs+" images");  
   let imgs = getRandomImageSrc(amountPairs);
-  console.log("Getting "+amountPairs+" images");
 
   imgs = imgs.concat(imgs); // create array with two of every image
 
