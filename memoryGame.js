@@ -13,10 +13,6 @@ function hideChoices() {
 
 /* Returns true if the previousChoice are of the same image. If not, false is returned */
 function compareChoices() {
-  if(previousChoice[0].src === previousChoice[1].src) {
-    previousChoice[0].classList.add('paired');
-    previousChoice[1].classList.add('paired');
-  }
   return previousChoice[0].src === previousChoice[1].src
 }
 
@@ -54,6 +50,8 @@ function chooseImg() {
   if(previousChoice.length===1) {
     if(previousChoice[0].src===img.src){
       pairedImgs.push(img.src);
+      previousChoice[0].classList.add('paired');  
+      img.classList.add('paired');
     }
   }
 
