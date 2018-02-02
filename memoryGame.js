@@ -13,6 +13,10 @@ function hideChoices() {
 
 /* Returns true if the previousChoice are of the same image. If not, false is returned */
 function compareChoices() {
+  if(previousChoice[0].src === previousChoice[1].src) {
+    previousChoice[0].classList.add('paired');
+    previousChoice[1].classList.add('paired');
+  }
   return previousChoice[0].src === previousChoice[1].src
 }
 
@@ -50,8 +54,6 @@ function chooseImg() {
   if(previousChoice.length===1) {
     if(previousChoice[0].src===img.src){
       pairedImgs.push(img.src);
-      previousChoice[0].classList.add('paired');
-      previousChoice[1].classList.add('paired');
     }
   }
 
@@ -77,7 +79,7 @@ function chooseImg() {
 
 /* returns an array with the specified amount of random numbers in range. */
 function getRandomNumbers(amountNumbers, from=Number.MIN_VALUE, to=Number.MAX_VALUE, unique=false) {
-  let delta = to-from+1;
+  let delta = to-from+1 ;
   let i =0, randomArr=[];
   while(randomArr.length<amountNumbers) {
     let random = Math.floor(Math.random()*delta) + from;
