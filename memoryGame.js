@@ -1,12 +1,12 @@
-var previousChoice = [];
-pairedImgs = [];
+let previousChoice = [];
+let pairedImgs = [];
 
-var amountImages=16;  // amount of images currently in images folder
-var imagePath="img/";
+let amountImages=16;  // amount of images currently in images folder
+let imagePath="img/";
 
 /* Hides the images chosen since last successful match. */
 function hideChoices() {
-  for(var i=0; i<previousChoice.length; ++i) {
+  for(let i=0; i<previousChoice.length; ++i) {
     hideImg(previousChoice[i]);
   }
 }
@@ -40,7 +40,7 @@ function isVisible(img) {
 
 /* Handles click on cells */
 function chooseImg() {
-  var img = this.firstElementChild;
+  let img = this.firstElementChild;
 
   // if(same element already paired or first choice, do nothing.
   if((previousChoice.length==1 && previousChoice[0]===img) || pairedImgs.includes(img.src)){
@@ -79,10 +79,10 @@ function chooseImg() {
 
 /* returns an array with the specified amount of random numbers in range. */
 function getRandomNumbers(amountNumbers, from=Number.MIN_VALUE, to=Number.MAX_VALUE, unique=false) {
-  var delta = to-from;
-  var i =0, randomArr=[];
+  let delta = to-from;
+  let i =0, randomArr=[];
   while(randomArr.length<amountNumbers) {
-    var random = Math.floor(Math.random()*delta) + from;
+    let random = Math.floor(Math.random()*delta) + from;
     if(unique && randomArr.includes(random))
       continue;
     randomArr.push(random);
@@ -93,9 +93,9 @@ function getRandomNumbers(amountNumbers, from=Number.MIN_VALUE, to=Number.MAX_VA
 
 /* get random images from server returns the amount inputted */
 function getRandomImageSrc(amount) {
-  var imgs = [];
-  var randomNumbers = getRandomNumbers(amount,1,amountImages,true);
-  for (var i in randomNumbers) {
+  let imgs = [];
+  let randomNumbers = getRandomNumbers(amount,1,amountImages,true);
+  for (let i in randomNumbers) {
     imgs.push(imagePath + randomNumbers[i] + ".png");
   }
   return imgs;
@@ -103,14 +103,14 @@ function getRandomImageSrc(amount) {
 
 /* function returns a table with the specified width and heigth */
 function createTable(width,height) {
-  var table = document.createElement('table');
+  let table = document.createElement('table');
   // set an id for reference
   table.id = 'gameTable';
-  var tbody = document.createElement('tbody');
-  var row=null;
-  for(var i=0; i<height; ++i) { // iterating over rows
+  let tbody = document.createElement('tbody');
+  let row=null;
+  for(let i=0; i<height; ++i) { // iterating over rows
     row = document.createElement('tr');
-    for(var j=0; j<width; ++j) {  // iterating over cols
+    for(let j=0; j<width; ++j) {  // iterating over cols
       row.appendChild(document.createElement('td')); // adding cell to table-row
     }
     tbody.appendChild(row);
@@ -128,11 +128,11 @@ function addImageTable(images,table=null,amountCol=4, amountRow=3) {
     table=createTable(amountCol,amountRow);
   }
   console.log("creating images");
-  var cells=table.getElementsByTagName('td');
-  for (var i = 0, cell; cell = cells[i]; i++) {
+  let cells=table.getElementsByTagName('td');
+  for (let i = 0, cell; cell = cells[i]; i++) {
     //iterate through cells
     //cells would be accessed using the "cell" variable assigned in the for loop
-      var img = document.createElement('img');
+      let img = document.createElement('img');
       img.src = images[i];
       img.style.display='none';
       cell.appendChild(img);
@@ -141,21 +141,21 @@ function addImageTable(images,table=null,amountCol=4, amountRow=3) {
   return table;
 }
 
-var amountPairs=0;
+let amountPairs=0;
 
 /* Prepares a new game. */
 function prePareGame(rows=3, columns=4) {
   /* choosing random images from imageFolder */
   amountPairs = (rows*columns)/2;
-  var imgs = getRandomImageSrc(amountPairs);
+  let imgs = getRandomImageSrc(amountPairs);
   console.log("Getting "+amountPairs+" images");
 
   imgs = imgs.concat(imgs); // create array with two of every image
 
   /* prepares table. Adds images into it */
-  var table = addImageTable(imgs,null,columns,rows);
+  let table = addImageTable(imgs,null,columns,rows);
 
-  var gameTable = document.getElementById('gameTable')
+  let gameTable = document.getElementById('gameTable')
   if(!!gameTable) {
     console.log("gameTable exists!");
     gameTable.parentNode.replaceChild(table,gameTable);
@@ -168,12 +168,12 @@ function prePareGame(rows=3, columns=4) {
 
 
 function prepareInput() {
-  var rows = parseInt(document.getElementById("rows").value);
-  var columns = parseInt(document.getElementById("columns").value);
+  let rows = parseInt(document.getElementById("rows").value);
+  let columns = parseInt(document.getElementById("columns").value);
 
   console.log("Preparing input... rows: "+rows+" cols:" + columns);
 
-  var neededImages = rows*columns;
+  let neededImages = rows*columns;
 
   if(neededImages%2!==0) {
     alert("Can't work with odd number of cards!");
@@ -184,6 +184,5 @@ function prepareInput() {
     alert("Not enough images on server to accomodate")
     return;
   }
-
   prePareGame(rows,columns);
 }
