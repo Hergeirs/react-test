@@ -73,7 +73,8 @@ function chooseImg() {
   console.log("pairedImgs.length: "+pairedImgs.length);
 
   if(amountPairs===pairedImgs.length)
-    alert("Congratulations!\nyou won the game :D");
+    window.setTimeout(alert("Congratulations!\nyou won the game :D"),5);
+    
 }
 
 /* returns an array with the specified amount of random numbers in range. */
