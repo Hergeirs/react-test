@@ -77,7 +77,7 @@ function chooseImg() {
 
 /* returns an array with the specified amount of random numbers in range. */
 function getRandomNumbers(amountNumbers, from=Number.MIN_VALUE, to=Number.MAX_VALUE, unique=false) {
-  let delta = to-from;
+  let delta = to-from+1;
   let i =0, randomArr=[];
   while(randomArr.length<amountNumbers) {
     let random = Math.floor(Math.random()*delta) + from;
@@ -132,6 +132,7 @@ function addImageTable(images,table=null,amountCol=4, amountRow=3) {
     //iterate through cells
     //cells would be accessed using the "cell" variable assigned in the for loop
       let img = document.createElement('img');
+      console.log("imageIndex: "+i);
       img.src = images[i];
       img.style.display='none';
       cell.appendChild(img);
