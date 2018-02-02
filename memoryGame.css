@@ -1,0 +1,24 @@
+table tbody td{
+  border: solid black 2px;
+  background-image: url("img/placeholder.jpg");
+  height: 225px;
+  width: 225px;
+  margin:0;
+  padding:0;
+}
+
+table tbody td img{
+  height: 225px;
+  width: 225px;
+  transform : rotate3d(0,1,0,90deg);
+
+  transition: 1s;
+}
+
+.paired {
+  filter: grayscale(100%);
+}
+
+.flipped {
+  transform : rotate3d(0,-1,0,0deg);
+}
