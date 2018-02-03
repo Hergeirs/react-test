@@ -1,3 +1,10 @@
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 let previousChoice = [];
 let pairedImgs = [];
 
@@ -77,10 +84,10 @@ function chooseImg() {
 
 /* returns an array with the specified amount of random numbers in range. */
 function getRandomNumbers(amountNumbers, from=Number.MIN_VALUE, to=Number.MAX_VALUE, unique=false) {
-  let delta = to-from+1 ;
+  let delta = to-from ;
   let i =0, randomArr=[];
   while(randomArr.length<amountNumbers) {
-    let random = Math.floor(Math.random()*delta) + from;
+    let random = Math.ceil(Math.random()*delta) + from;
     if(unique && randomArr.includes(random))
       continue;
     randomArr.push(random);
@@ -123,7 +130,7 @@ function createTable(width,height) {
  * @table is the table. If null, a table with amountCol and amountRow
  * */
 function addImageTable(images,table=null,amountCol=4, amountRow=3) {
-  if(table===null) {
+  if(table===null) {  // um talvan skal gerast
     table=createTable(amountCol,amountRow);
   }
   console.log("creating images");
@@ -136,12 +143,13 @@ function addImageTable(images,table=null,amountCol=4, amountRow=3) {
       img.src = images[i];
       img.style.display='none';
       cell.appendChild(img);
-      cell.onclick= chooseImg;
+      cell.addEventListener('click',chooseImg,false);
     }
   return table;
 }
 
 let amountPairs=0;
+
 
 /* Prepares a new game. */
 function prePareGame(rows=3, columns=4) {
@@ -151,6 +159,8 @@ function prePareGame(rows=3, columns=4) {
   let imgs = getRandomImageSrc(amountPairs);
   console.log(imgs);
   imgs = imgs.concat(imgs); // create array with two of every image
+  shuffleArray(imgs);
+
 
   /* prepares table. Adds images into it */
   let table = addImageTable(imgs,null,columns,rows);

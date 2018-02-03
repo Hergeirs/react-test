@@ -1,0 +1,23 @@
+{
+  "name": "memory_game",
+  "version": "1.0.0",
+  "description": "A memory game",
+  "main": "prePareGame()",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hergeirs/hergeirs.github.io.git"
+  },
+  "author": "Hergeir Winther Lognberg",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hergeirs/hergeirs.github.io/issues"
+  },
+  "homepage": "https://github.com/hergeirs/hergeirs.github.io#readme",
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  }
+}
