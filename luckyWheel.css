@@ -1,0 +1,11 @@
+#wheel {
+	animation-name : 'none';
+	animation-timing-function: ease-in-out;
+	animation-direction: normal;
+	animation-duration: 6s;
+}
+
+@keyframes spin {
+	0% {}
+	100% {}	
+}

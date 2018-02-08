@@ -1,28 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script type="text/javascript"src="memoryGame.js"></script>
     <link rel="stylesheet" href="memoryGame.css"/>
+    <link rel='stylesheet' href="luckyWheel.css"/>
+    <script type="text/javascript"src="memoryGame.js"></script>
+    <script type="text/javascript"src="luckyWheel.js"></script>  
+    <script type="text/javascript"src="prime.js"></script>
+    
     <meta charset="UTF-8">
     <title>thagame</title>
 </head>
-  <body onload="">
-    <div id='configDiv'>
-      <label>
-        Kolonnir
-        <input value="4" id="columns" type="number"/>
-      </label>
-      <label>
-        Rekkjur
-        <input value="3" id="rows" type="number"/>
-      </label> 
-      <button onclick="prepareInput()">Byrja spælið</button>
-  </div>
+  <body>
+    <div id='memoryGame'>
+        <div id='configDiv'>
+            <label>
+              tal av Pørum
+              <input value="4" id="amount" type="number"/>
+            </label>
+        
+            <button onclick="prepareInput()">Byrja spælið</button>
+          </div>  
+        <div id='gameDiv'>
+          <!-- using javascript to generate table-->
+        </div>
 
-
-    <div id='gameDiv'>
-      <!-- using javascript to generate table-->
+  
     </div>
+    <div>
+      <div style="display:none;" id='luckyWheel'>
+        <div id='score'></div>
+        <div>
+          <img id='wheel' src='https://img00.deviantart.net/5e9a/i/2012/266/3/d/hour_long_wheel___1975___round_1_by_wheelgenius-d5fog9v.png'/>
+        <button id='luckyButton'>get lucky</button>
+        </div>
+      </div>
+    </div>
+    <div id='primeTest'>
+      <input type="number" id="numberOfPrimesInput">
+      <button onclick="findPrimes()" >findPrimes</button>
+      <table id='primeTable'>
 
+      </table>
+      <div>count of primes: <span id='numberOfPrimes'></span></div>
+    </div>
   </body>
 </html>

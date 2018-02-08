@@ -11,14 +11,52 @@ table tbody td img{
   height: 225px;
   width: 225px;
   transform : rotate3d(0,1,0,90deg);
-
   transition: 1s;
 }
 
 .paired {
-  filter: grayscale(100%);
+  animation: blink normal 2s 1 none;
+  transform: scale(1);
+  filter:grayscale(100%);
 }
 
 .flipped {
   transform : rotate3d(0,-1,0,0deg);
+}
+
+.not-paired {
+  animation: blink normal 2s 1 ease-in-out;
+}
+
+.not-flipped {
+  
+}
+
+.correct {
+
+}
+
+@keyframes graying {
+  0% {animation: blinking normal 2s 1 ease-in-out; }
+  100% {filter: grayscale(100%)}
+}
+
+@keyframes blink {
+  0% {
+      opacity:1;
+  }
+  50% {
+      opacity:0;
+  }
+  100% {
+      opacity:1;
+  }
+} 
+
+@keyframes blinking {
+  0% {filter:grayscale(0%)}
+  25%{filter:grayscale(100%)}
+  50%{filter:grayscale(0%)}
+  75%{filter:grayscale(100%)}
+  100%{filter:grayscale(0%)}
 }

@@ -84,10 +84,10 @@ function chooseImg() {
 
 /* returns an array with the specified amount of random numbers in range. */
 function getRandomNumbers(amountNumbers, from=Number.MIN_VALUE, to=Number.MAX_VALUE, unique=false) {
-  let delta = to-from ;
+  let delta = to-from+1 ;
   let i =0, randomArr=[];
   while(randomArr.length<amountNumbers) {
-    let random = Math.ceil(Math.random()*delta) + from;
+    let random = Math.floor(Math.random()*delta) + from;
     if(unique && randomArr.includes(random))
       continue;
     randomArr.push(random);
@@ -107,8 +107,35 @@ function getRandomImageSrc(amount) {
   return imgs;
 }
 
+/* Function to find best  */
+function findLeastSumFactors(amount)
+{
+  let middle = Math.floor(Math.sqrt(amount));
+  do {
+    if(amount%middle==0)
+    {
+      return [middle,amount/middle];
+    }
+
+  } while(--middle)
+
+  return -1;
+}
+
+
 /* function returns a table with the specified width and heigth */
-function createTable(width,height) {
+function createTable(amount) {
+  let factors = findLeastSumFactors(amount);
+
+  if(factors === -1)
+  {
+    console.log("no factors where found");
+    return;
+  }
+    
+  let height=factors[0];
+  let width =factors[1];
+
   let table = document.createElement('table');
   // set an id for reference
   table.id = 'gameTable';
@@ -129,9 +156,9 @@ function createTable(width,height) {
  * @images is an array with the immages
  * @table is the table. If null, a table with amountCol and amountRow
  * */
-function addImageTable(images,table=null,amountCol=4, amountRow=3) {
+function addImageTable(images,table=null,amount) {
   if(table===null) {  // um talvan skal gerast
-    table=createTable(amountCol,amountRow);
+    table=createTable(amount);
   }
   console.log("creating images");
   let cells=table.getElementsByTagName('td');
@@ -152,18 +179,17 @@ let amountPairs=0;
 
 
 /* Prepares a new game. */
-function prePareGame(rows=3, columns=4) {
+function prePareGame(amount) {
   /* choosing random images from imageFolder */
-  amountPairs = (rows*columns)/2;
+  amountPairs = amount/2;
   console.log("Getting "+amountPairs+" images");  
   let imgs = getRandomImageSrc(amountPairs);
   console.log(imgs);
   imgs = imgs.concat(imgs); // create array with two of every image
   shuffleArray(imgs);
 
-
   /* prepares table. Adds images into it */
-  let table = addImageTable(imgs,null,columns,rows);
+  let table = addImageTable(imgs,null,amount);
 
   let gameTable = document.getElementById('gameTable')
   if(!!gameTable) {
@@ -178,12 +204,9 @@ function prePareGame(rows=3, columns=4) {
 
 
 function prepareInput() {
-  let rows = parseInt(document.getElementById("rows").value);
-  let columns = parseInt(document.getElementById("columns").value);
+  let amount = parseInt(document.getElementById("amount").value);
 
-  console.log("Preparing input... rows: "+rows+" cols:" + columns);
-
-  let neededImages = rows*columns;
+  let neededImages = amount*2;
 
   if(neededImages%2!==0) {
     alert("Can't work with odd number of cards!");
@@ -194,5 +217,5 @@ function prepareInput() {
     alert("Not enough images on server to accomodate")
     return;
   }
-  prePareGame(rows,columns);
+  prePareGame(neededImages);
 }
