@@ -1,0 +1,6 @@
+<input type="number" id="numberOfPrimesInput">
+      <button onclick="findPrimes()" >findPrimes</button>
+      <table id='primeTable'>
+
+      </table>
+<div>count of primes: <span id='numberOfPrimes'></span></div>

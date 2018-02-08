@@ -1,0 +1,11 @@
+<div id='configDiv'>
+	<label>
+		tal av Pørum
+		<input value="4" id="amount" type="number"/>
+	</label>
+
+	<button onclick="prepareInput()">Byrja spælið</button>
+</div>  
+<div id='gameDiv'>
+	<!-- using javascript to generate table-->
+</div>
