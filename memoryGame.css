@@ -1,6 +1,9 @@
 table tbody td{
   border: solid black 2px;
-  background-image: url("img/placeholder.jpg");
+  background-image: url("img/placeholder3.jpg");
+  background-position: center;
+  background-size:contain;
+  background-repeat: no-repeat; 
   height: 225px;
   width: 225px;
   margin:0;

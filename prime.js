@@ -1,6 +1,9 @@
 function findPrimes() {
 	console.log('finding primes...');
-	let a = Array(5).fill(1);
+	let amount = document.getElementById('numberOfPrimesInput');
+	amount = parseInt(amount.value);
+	console.log(amount);
+	let a = Array(amount).fill(1);
 	a[0]=a[1]=0;
 
 	let endCond=Math.sqrt(a.length);
@@ -15,7 +18,9 @@ function findPrimes() {
 }
 
 function fillPrimeTable(a) {
-	let table = document.getElementById('primeTable');
+	
+	let table = document.createElement('table');
+	table.id='primeTable';
 	let row = document.createElement('tr');
 	let cellNo=0;
 	for(let i = 0; i<a.length;++i){
@@ -32,7 +37,11 @@ function fillPrimeTable(a) {
 	}
 	table.appendChild(row);
 
-	document.getElementById('numberOfPrimes').innerHTML=document.getElementById('primeTable').getElementsByTagName('td').length;
+	let oldTable = document.getElementById('primeTable');
+	console.log(oldTable);
+	oldTable.parentElement.replaceChild(table,oldTable);
+
+	document.getElementById('numberOfPrimes').innerHTML=table.getElementsByTagName('td').length;
 }
 
 
