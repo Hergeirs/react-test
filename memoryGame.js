@@ -14,39 +14,46 @@ function shuffleArray(array) {
 /* Hides the images chosen since last successful match. */
 function hideChoices() {
   for(let i=0; i<previousChoice.length; ++i) {
-    hideImg(previousChoice[i]);
+    hideImg(previousChoice[i].parentElement);
   }
 }
 
 /* Returns true if the previousChoice are of the same image. If not, false is returned */
 function compareChoices() {
-  return previousChoice[0].src === previousChoice[1].src
+  return [...previousChoice[0].classList].includes('paired') && [...previousChoice[1].classList].includes('paired');
 }
 
 /*  Hides the element passed into it */
-function hideImg(img) {
-  img.style.display = 'none';
-  img.classList.remove('flipped');
+function hideImg(elem) {
+  elem.parentElement.classList.remove('flipped');
 }
 
 /*  Renders the element passed into it visible */
-function showImg(img) {
-  img.style.display = 'block';
-  void img.offsetWidth; // trigger reflow
-  img.classList.add("flipped");
+function showImg(elem) {
+  void elem.offsetWidth; // trigger reflow
+  elem.parentElement.classList.add('flipped');
 }
 
 function isVisible(img) {
   return img.style.display !== 'none';
 }
 
+function compareBacks(cardA,cardB) {
+  if(cardA.style.backgroundImage!==cardB.style.backgroundImage) {
+    return false;
+  }
+  pairedImgs.push(cardA.style.backgroundImage);
+  cardA.classList.add('paired');
+  cardB.classList.add('paired');  
+}
 
 /* Handles click on cells */
-function chooseImg() {
-  let img = this.firstElementChild;
-
+function chooseCard() {
+  let card = this;
+  let back = card.getElementsByClassName('back')[0];
+  console.log(card);
   // if(same element already paired or first choice, do nothing.
-  if((previousChoice.length==1 && previousChoice[0]===img) || pairedImgs.includes(img.src)){
+  if((previousChoice.length==1 && previousChoice[0]===back) || pairedImgs.includes(back.style.backgroundImage)){
     console.log("doing nothing");
     return;
   }
@@ -55,11 +62,7 @@ function chooseImg() {
 
   // to match the pair ASAP
   if(previousChoice.length===1) {
-    if(previousChoice[0].src===img.src){
-      pairedImgs.push(img.src);
-      previousChoice[0].classList.add('paired');  
-      img.classList.add('paired');
-    }
+    compareBacks(previousChoice[0],back);
   }
 
   // if two choices have been made. Need to compare and handle if they're the same image.
@@ -70,9 +73,9 @@ function chooseImg() {
     }
     previousChoice = [];
   }
-  previousChoice.push(img);
+  previousChoice.push(back);
 
-  showImg(img);
+  showImg(card);
 
   console.log("amountPairs: "+amountPairs);
   console.log("pairedImgs.length: "+pairedImgs.length);
@@ -100,7 +103,6 @@ function getRandomNumbers(amountNumbers, from=Number.MIN_VALUE, to=Number.MAX_VA
 function getRandomImageSrc(amount) {
   let imgs = [];
   let randomNumbers = getRandomNumbers(amount,1,amountImages,true);
-  console.log(randomNumbers);
   for (let i in randomNumbers) {
     imgs.push(imagePath + randomNumbers[i] + ".png");
   }
@@ -152,28 +154,88 @@ function createTable(amount) {
   return table;
 }
 
+function createFlipCard() {
+  let upperDiv = document.createElement('div'),
+      frontDiv = document.createElement('div'),
+      backDiv  = document.createElement('div');
+      upperDiv.className='flipper';
+      frontDiv.className='front';
+      backDiv.className='back';
+  
+  upperDiv.appendChild(frontDiv);
+  upperDiv.appendChild(backDiv);
+  return upperDiv;
+}
+
+function createDivTable(amount,rowClass,cellClass) {
+  let factors = findLeastSumFactors(amount);
+
+  if(factors === -1)
+  {
+    console.log("no factors where found");
+    return;
+  }
+    
+  let height=factors[0];
+  let width =factors[1];
+
+  let table = document.createElement('div');
+  // set an id for reference
+  table.id = 'gameTable';
+  let row=null;
+  for(let i=0; i<height; ++i) { // iterating over rows
+    row = document.createElement('div');
+    row.classList.add(rowClass);
+    for(let j=0; j<width; ++j) {  // iterating over cols
+      cell = document.createElement('div');
+      cell.className=cellClass;
+      cell.appendChild(createFlipCard());
+      row.appendChild(cell); // adding cell to table-row
+    }
+    table.appendChild(row);
+  }
+  return table;
+}
+
+
 /* add images to table... creates table if image doesn't exist
  * @images is an array with the immages
  * @table is the table. If null, a table with amountCol and amountRow
  * */
-function addImageTable(images,table=null,amount) {
-  if(table===null) {  // um talvan skal gerast
-    table=createTable(amount);
+// function addImageTable(images,table=null,amount) {
+//   if(table===null) {  // um talvan skal gerast
+//     table=createTable(amount);
+//   }
+//   console.log("creating images");
+//   let cells=table.getElementsByTagName('td');
+//   for (let i = 0, cell; cell = cells[i]; i++) {
+//     //iterate through cells
+//     //cells would be accessed using the "cell" variable assigned in the for loop
+//       let img = document.createElement('img');
+//       console.log("imageIndex: "+i);
+//       img.src = images[i];
+//       img.style.display='none';
+//       cell.appendChild(img);
+//       cell.addEventListener('click',chooseImg,false);
+//     }
+//   return table;
+// }
+
+function addImageDivTable(images,divTable=null,amount) {
+  if(divTable===null) {
+    divTable = createDivTable(amount,'game-row','game-tile tile-medium');
   }
+
   console.log("creating images");
-  let cells=table.getElementsByTagName('td');
-  for (let i = 0, cell; cell = cells[i]; i++) {
-    //iterate through cells
-    //cells would be accessed using the "cell" variable assigned in the for loop
-      let img = document.createElement('img');
-      console.log("imageIndex: "+i);
-      img.src = images[i];
-      img.style.display='none';
-      cell.appendChild(img);
-      cell.addEventListener('click',chooseImg,false);
-    }
-  return table;
+  let backs=divTable.getElementsByClassName('back');
+  let i=-1;
+  for (let j = 0; back = backs[j]; j++) {
+      back.style.backgroundImage =  'url("' + images[++i] + '")';
+      back.parentElement.addEventListener('click',chooseCard,false);
+  }
+  return divTable;
 }
+
 
 let amountPairs=0;
 
@@ -184,12 +246,11 @@ function prePareGame(amount) {
   amountPairs = amount/2;
   console.log("Getting "+amountPairs+" images");  
   let imgs = getRandomImageSrc(amountPairs);
-  console.log(imgs);
   imgs = imgs.concat(imgs); // create array with two of every image
   shuffleArray(imgs);
 
   /* prepares table. Adds images into it */
-  let table = addImageTable(imgs,null,amount);
+  let table = addImageDivTable(imgs,null,amount);
 
   let gameTable = document.getElementById('gameTable')
   if(!!gameTable) {
@@ -198,6 +259,7 @@ function prePareGame(amount) {
   }
   else {
     console.log("gameTable exists not!");
+    console.log(document.getElementById('gameDiv'));
     document.getElementById('gameDiv').appendChild(table);
   }
 }

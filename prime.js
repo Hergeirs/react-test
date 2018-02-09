@@ -1,3 +1,7 @@
+function checkIfArrayIsUnique(myArray) {
+	return myArray.length === new Set(myArray).size;
+  }
+
 function findPrimes() {
 	console.log('finding primes...');
 	let amount = document.getElementById('numberOfPrimesInput');
@@ -40,9 +44,15 @@ function fillPrimeTable(a) {
 	let oldTable = document.getElementById('primeTable');
 	console.log(oldTable);
 	oldTable.parentElement.replaceChild(table,oldTable);
-
-	document.getElementById('numberOfPrimes').innerHTML=table.getElementsByTagName('td').length;
+	let cells = table.getElementsByTagName('td'); 
+	let primes = [];
+	for(let cell in cells)
+		primes.push(cell.value);
+	console.log(primes.toString());	
+	
+	document.getElementById('numberOfPrimes').innerHTML=table.getElementsByTagName('td').length+" unique: " + checkIfArrayIsUnique(primes);
 }
+
 
 
 

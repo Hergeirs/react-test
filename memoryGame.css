@@ -25,18 +25,11 @@ table tbody td img{
 
 .flipped {
   transform : rotate3d(0,-1,0,0deg);
+  opacity: 1;
 }
 
 .not-paired {
   animation: blink normal 2s 1 ease-in-out;
-}
-
-.not-flipped {
-  
-}
-
-.correct {
-
 }
 
 @keyframes graying {
@@ -62,4 +55,121 @@ table tbody td img{
   50%{filter:grayscale(0%)}
   75%{filter:grayscale(100%)}
   100%{filter:grayscale(0%)}
+}
+
+/* https://davidwalsh.name/css-flip */
+
+/* entire container, keeps perspective */
+.game-tile {
+  perspective: 1000px;
+}
+/* flip the pane when hovered */
+/*
+.game-tile:hover .flipper, .game-tile.hover .flipper {
+  transform: rotateY(180deg);
+}
+*/
+
+.game-tile.flipped .flipper {
+  transform: rotateY(180deg);
+}
+
+.game-tile, .front, .back {
+  width: 320px;
+  height: 480px;
+}
+
+/* flip speed goes here */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+  backface-visibility: hidden;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+  z-index: 2;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+  transform: rotateY(180deg);
+}
+
+/* https://davidwalsh.name/css-flip */
+
+.container {
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  margin: 0 auto;
+  /*background-color: white; */
+  min-height: 400px;
+  background-color: gray;
+}
+
+div.game-tile {
+  /*float: left;*/
+
+  display:inline-block; /* so the children on the same line */
+  font-size: small;
+  height: auto;
+  width: auto;
+
+  margin: 5px 5px 0 5px;
+  padding: 0;
+  perspective: 1000px;
+}
+
+div.front {
+  background: url("img/placeholder.jpg") no-repeat center;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+div.back {
+  background: no-repeat center;
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+}
+
+div.game-row {
+  /* overflow: auto; */
+  overflow:hidden;
+  white-space: nowrap;
+  text-align: center;
+  padding: 0;
+}
+
+div.tile-small {
+  width: 175px;
+  height: 175px;
+}
+
+div.tile-medium {
+  width: 225px;
+  height: 225px;
+}
+
+div.tile-large {
+  width: 250px;
+  height: 250px;
 }
