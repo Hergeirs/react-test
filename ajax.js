@@ -13,9 +13,10 @@ function loadElement(elementId) {
 	let element = document.getElementById(elementId);
 	if(!elementIsEmpty(element)) {
 		toggleDisplay(element);
-		return;
+		return false;
 	}
-	requestDiv(elementId,elementId+'.xml')
+	requestDiv(elementId,elementId+'.xml');
+	return true;
 }
 
 
@@ -24,7 +25,8 @@ function loadMemoryGame() {
 }
 
 function loadPrimeFinder() { 
-	loadElement('primeNumbersUnder')
+	if(loadElement('primeNumbersUnder'))
+		document.getElementById('findPrimes').addEventListener('click',findPrimes,false);
 }
 
 

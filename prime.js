@@ -22,7 +22,7 @@ function fillPrimeTable(a) {
 	let table = document.createElement('table');
 	table.id='primeTable';
 	let row = document.createElement('tr');
-	let cellNo=0;
+	let cellNo=-1;
 	for(let i = 0; i<a.length;++i){
 		if(a[i])
 		{

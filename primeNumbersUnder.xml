@@ -1,5 +1,5 @@
 <input type="number" id="numberOfPrimesInput">
-      <button onclick="findPrimes()" >findPrimes</button>
+      <button id='findPrimes'>findPrimes</button>
       <table id='primeTable'>
 
       </table>
