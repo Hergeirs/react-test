@@ -44,15 +44,34 @@ function fillPrimeTable(a) {
 	let oldTable = document.getElementById('primeTable');
 	console.log(oldTable);
 	oldTable.parentElement.replaceChild(table,oldTable);
-	let cells = table.getElementsByTagName('td'); 
+	let cells = [...table.getElementsByTagName('td')]; 
 	let primes = [];
-	for(let cell in cells)
-		primes.push(cell.value);
-	console.log(primes.toString());	
+	
+	for(let i=0; i<cells.length;++i)
+		primes.push(cells[i].innerHTML);
+	console.log(primes);
 	
 	document.getElementById('numberOfPrimes').innerHTML=table.getElementsByTagName('td').length+" unique: " + checkIfArrayIsUnique(primes);
 }
 
+function testForPrimality(toTest) {
+	let endCond=Math.floor(Math.sqrt(toTest));
+	let a = Array(endCond).fill(1);
+	a[0]=a[1]=0;
+	if(toTest%2===0) {
+		return false;
+	} 
+	for(let i=2;i<endCond;++i) {
+		if(a[i]===0)	// if a==0
+			continue;
+		for(let l=i*2,factor=3; l<a.length;l=(++factor)*i) {
+			if(l==toTest)
+				return false;
+			a[l]=0;
+		}
+	}
+	return true;
+}
 
 
 

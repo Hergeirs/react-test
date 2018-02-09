@@ -81,7 +81,7 @@ function chooseCard() {
   console.log("pairedImgs.length: "+pairedImgs.length);
 
   if(amountPairs===pairedImgs.length)
-    window.setTimeout(alert("Congratulations!\nyou won the game :D"),5);
+    window.setTimeout(function (){alert("Congratulations!\nyou won the game :D");},1000);
     
 }
 
@@ -166,6 +166,7 @@ function createFlipCard() {
   upperDiv.appendChild(backDiv);
   return upperDiv;
 }
+
 
 function createDivTable(amount,rowClass,cellClass) {
   let factors = findLeastSumFactors(amount);
