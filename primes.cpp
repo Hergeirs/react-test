@@ -1,7 +1,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
-
+#include <chrono>
 
 void findPrimes(std::vector<short unsigned int>& primes,int amount)
 {
@@ -10,12 +10,13 @@ void findPrimes(std::vector<short unsigned int>& primes,int amount)
 
 	size_t endCond=std::sqrt(amount);
 
+
 	for(size_t i=2;i<endCond;++i) 
 	{
-	if(primes[i]==0)	// if a==0
-		continue;
-	for(int l=i*2,factor=3; l<amount;l=(++factor)*i)
-		primes[l]=0;
+		if(primes[i]==0)	// if a==0
+			continue;
+		for(int l=i*2,factor=3; l<amount;l=(++factor)*i)
+			primes[l]=0;
 	}
 }
 
@@ -28,13 +29,13 @@ void printPrimes(std::vector<short unsigned int> primes)
 		if(primes[i]==1)
 		{
 			++primeNo;
-			//if((++primeNo)%10==0)
-				//std::cout << '\n';
-			//std::cout << i << ' ';
+			if((++primeNo)%10==0)
+				std::cout << '\n';
+			std::cout << i << ' ';
 		}
 	}
 	
-
+	
 	std::cout << '\n' << "Number of primes: " << primeNo << std::endl;
 }
 
@@ -43,7 +44,11 @@ void printPrimes(std::vector<short unsigned int> primes)
 int main(int argc,char** argv)
 {
 	std::vector<short unsigned int>primes;
+	auto start = std::chrono::system_clock::now();
 	findPrimes(primes,std::stoi(argv[1]));
 	printPrimes(primes);
+	auto end = std::chrono::system_clock::now();
+	std::chrono::duration<double> duration = end-start;
+	std::cout << "took " << duration.count() << " time" << std::endl;
 	return 0;
 }

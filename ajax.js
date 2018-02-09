@@ -9,28 +9,7 @@ function toggleDisplay(element) {
 		element.style.display='block';
 }
 
-function loadElement(elementId) {
-	let element = document.getElementById(elementId);
-	if(!elementIsEmpty(element)) {
-		toggleDisplay(element);
-		return false;
-	}
-	requestDiv(elementId,elementId+'.xml');
-	return true;
-}
-
-
-function loadMemoryGame() {
-	loadElement('memoryGame');
-}
-
-function loadPrimeFinder() { 
-	if(loadElement('primeNumbersUnder'))
-		document.getElementById('findPrimes').addEventListener('click',findPrimes,false);
-}
-
-
-
+// insert  file content on server with name serverFile into element with targetId
 function requestDiv(targetId,serverFile) {
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -43,3 +22,13 @@ function requestDiv(targetId,serverFile) {
 	xhttp.send();
 }
 
+
+function loadElement(elementId) {
+	let element = document.getElementById(elementId);
+	if(!elementIsEmpty(element)) {
+		toggleDisplay(element);
+		return false;
+	}
+	requestDiv(elementId,elementId+'.xml');
+	return true;
+}

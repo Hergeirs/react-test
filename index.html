@@ -7,8 +7,9 @@
     
     <script type="text/javascript"src="ajax.js"></script>    
     <script type="text/javascript"src="memoryGame.js"></script>
-    <script type="text/javascript"src="luckyWheel.js"></script>  
     <script type="text/javascript"src="prime.js"></script>
+    <script type="text/javascript"src="navHandler.js"></script>
+    
     
     <meta charset="UTF-8">
     <title>thagame</title>
@@ -18,14 +19,13 @@
 
     <nav>
       <ul>
-        <li><a onclick='loadMemoryGame()'>MemoryGame</a></li>
-        <li><a onclick='loadPrimeFinder()'>PrimeFinder</a></li>
-        <li><a onclick='loadPrimeTester()'>PrimalityTester</a></li>
-
+        <li><a data-xml-name='memoryGame'>MemoryGame</a></li>
+        <li><a data-xml-name='primeNumbersUnder'>PrimeFinder</a></li>
       </ul>
     </nav>
 
     <div id='memoryGame'></div>
     <div id='primeNumbersUnder'></div>
+    
   </body>
 </html>
