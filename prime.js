@@ -15,7 +15,7 @@ function findPrimes() {
 	for(let i=2;i<endCond;++i) {
 		if(a[i]==0)	// if a==0
 			continue;
-		for(let l=i*2,factor=3; l<a.length;l=(++factor)*i)
+		for(let factor=2,l=i*factor; l<a.length;l=(++factor)*i)
 			a[l]=0;
 	}
 	fillPrimeTable(a);
@@ -40,6 +40,7 @@ function fillPrimeTable(a) {
 		}
 	}
 	table.appendChild(row);
+	console.log('cellNo: '+cellNo);
 
 	let oldTable = document.getElementById('primeTable');
 	console.log(oldTable);
@@ -47,11 +48,12 @@ function fillPrimeTable(a) {
 	let cells = [...table.getElementsByTagName('td')]; 
 	let primes = [];
 	
-	for(let i=0; i<cells.length;++i)
-		primes.push(cells[i].innerHTML);
-	console.log(primes);
-	
-	document.getElementById('numberOfPrimes').innerHTML=table.getElementsByTagName('td').length+" unique: " + checkIfArrayIsUnique(primes);
+	let prev = parseInt(cells[0].innerText);
+	for(let i=1; i<cells.length;++i) {
+		if(parseInt(cells[i].innerText)>prev){}
+		else {console.log('something wrong!!!!');}
+	}
+	document.getElementById('numberOfPrimes').innerHTML=table.getElementsByTagName('td').length;
 }
 
 function testForPrimality(toTest) {

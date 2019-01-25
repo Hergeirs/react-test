@@ -1,42 +1,73 @@
 nav {
-	width: 200px;
-  }
+	position: sticky;
+	cursor: pointer;
+	width: 100px;
+	z-index: 1;
+}
+
+
    
-  h2 {
-	font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
-	margin: 0;
-	padding: 0;
-  }
-   
-  ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-  }
-   
-  li {
-	font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
-	border-bottom: 1px solid #ccc;
-  }
-   
-  li:last-child {
-	border: none;
-  }
-   
-  li a {
-	text-decoration: none;
-	color: #000;
-	display: block;
-	width: 200px;
-   
-	-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
-	-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
-	-o-transition: font-size 0.3s ease, background-color 0.3s ease;
-	-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
-	transition: font-size 0.3s ease, background-color 0.3s ease;
-  }
-   
-  li a:hover {
-	font-size: 30px;
-	background: #f6f6f6;
-  }
+h2 {
+font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+margin: 0;
+padding: 0;
+}
+	
+ul {
+list-style-type: none;
+margin: 0;
+padding: 0;
+}
+	
+li {
+font: 200 20px/1.5 Helvetica, Verdana, sans-serif;
+border-bottom: 1px solid #ccc;
+}
+	
+li:last-child {
+border: none;
+}
+	
+li a {
+text-decoration: none;
+color: #000;
+display: block;
+width: 200px;
+	
+-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+-o-transition: font-size 0.3s ease, background-color 0.3s ease;
+-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+transition: font-size 0.3s ease, background-color 0.3s ease;
+}
+	
+li a:hover {
+font-size: 30px;
+background: rgba(246, 246, 246, 0.7);
+}
+
+
+
+.container {
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  margin: 0 auto;
+  /*background-color: white; */
+  min-height: 0px;
+  /*background-color: gray;*/
+  text-align: center;
+  align-content: center;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.container.appear {
+  display: block;
+  animation: fadeIn 2s;
+  opacity: 1;
+}

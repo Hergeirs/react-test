@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="memoryGame.css"/>
-    <link rel='stylesheet' href="nav.css"/>
-    <link rel='stylesheet' href="primeNumbersUnder.css"/>
-    
-    <script type="text/javascript"src="ajax.js"></script>    
-    <script type="text/javascript"src="memoryGame.js"></script>
-    <script type="text/javascript"src="prime.js"></script>
-    <script type="text/javascript"src="navHandler.js"></script>
-    
-    
-    <meta charset="UTF-8">
-    <title>thagame</title>
+  <link rel="stylesheet" href="snake.css"/>
+  <link rel="stylesheet" href="memoryGame.css"/>
+  <link rel='stylesheet' href="nav.css"/>
+  <link rel='stylesheet' href="prime.css"/>
+  
+  <script type="text/javascript"src="snake.js"></script>      
+  <script type="text/javascript"src="ajax.js"></script>    
+  <script type="text/javascript"src="memoryGame.js"></script>
+  <script type="text/javascript"src="prime.js"></script>
+  <script type="text/javascript"src="navHandler.js"></script>
+  
+  
+  <meta charset="UTF-8">
+  <title>thagame</title>
 </head>
 
   <body>
@@ -21,11 +23,13 @@
       <ul>
         <li><a data-xml-name='memoryGame'>MemoryGame</a></li>
         <li><a data-xml-name='primeNumbersUnder'>PrimeFinder</a></li>
+        <li><a data-xml-name='snake'>Snake</a></li>
       </ul>
     </nav>
 
+    <div id='snake' class='container'></div>
     <div id='memoryGame' class='container'></div>
-    <div id='primeNumbersUnder'></div>
+    <div id='primeNumbersUnder' class='container'></div>
     
   </body>
 </html>

@@ -1,0 +1,9 @@
+table {
+	margin: 0 auto;
+	border: 2px solid black;
+	background: rgb(211, 211, 211);
+}
+
+table tr td {
+	border: 1px dotted white;
+}

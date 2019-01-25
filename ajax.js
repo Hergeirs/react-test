@@ -3,10 +3,18 @@ function elementIsEmpty(element) {
 }
 
 function toggleDisplay(element) {
-	if(element.style.display!=='none')
-		element.style.display='none';
+	if([...element.classList].includes('appear'))
+		element.classList.remove('appear');
 	else
-		element.style.display='block';
+		element.classList.add('appear');
+	// if(element.style.display!=='none') {
+	// 	element.style.display='none';
+	// 	element.classList.remove('appear');
+	// }
+	// else {
+	// 	element.style.display='block';
+	// 	element.classList.add('appear');
+	// }
 }
 
 // insert  file content on server with name serverFile into element with targetId
@@ -30,5 +38,6 @@ function loadElement(elementId) {
 		return false;
 	}
 	requestDiv(elementId,elementId+'.xml');
+	toggleDisplay(element);	
 	return true;
 }

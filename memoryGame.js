@@ -51,14 +51,12 @@ function compareBacks(cardA,cardB) {
 function chooseCard() {
   let card = this;
   let back = card.getElementsByClassName('back')[0];
-  console.log(card);
+  
   // if(same element already paired or first choice, do nothing.
   if((previousChoice.length==1 && previousChoice[0]===back) || pairedImgs.includes(back.style.backgroundImage)){
-    console.log("doing nothing");
+    
     return;
   }
-
-  console.log("doing something...?");
 
   // to match the pair ASAP
   if(previousChoice.length===1) {
@@ -67,7 +65,7 @@ function chooseCard() {
 
   // if two choices have been made. Need to compare and handle if they're the same image.
   if(previousChoice.length===2) {
-    console.log("3. choice made... comparing src of previous");
+    
     if(!compareChoices()) {
       hideChoices();
     }
@@ -76,9 +74,6 @@ function chooseCard() {
   previousChoice.push(back);
 
   showImg(card);
-
-  console.log("amountPairs: "+amountPairs);
-  console.log("pairedImgs.length: "+pairedImgs.length);
 
   if(amountPairs===pairedImgs.length)
     window.setTimeout(function (){alert("Congratulations!\nyou won the game :D");},1000);
@@ -131,7 +126,6 @@ function createTable(amount) {
 
   if(factors === -1)
   {
-    console.log("no factors where found");
     return;
   }
     
@@ -171,11 +165,9 @@ function createFlipCard() {
 function createDivTable(amount,rowClass,cellClass) {
   let factors = findLeastSumFactors(amount);
 
+  // if no factors where found.
   if(factors === -1)
-  {
-    console.log("no factors where found");
     return;
-  }
     
   let height=factors[0];
   let width =factors[1];
@@ -207,13 +199,13 @@ function createDivTable(amount,rowClass,cellClass) {
 //   if(table===null) {  // um talvan skal gerast
 //     table=createTable(amount);
 //   }
-//   console.log("creating images");
+//   
 //   let cells=table.getElementsByTagName('td');
 //   for (let i = 0, cell; cell = cells[i]; i++) {
 //     //iterate through cells
 //     //cells would be accessed using the "cell" variable assigned in the for loop
 //       let img = document.createElement('img');
-//       console.log("imageIndex: "+i);
+//       
 //       img.src = images[i];
 //       img.style.display='none';
 //       cell.appendChild(img);
@@ -227,7 +219,6 @@ function addImageDivTable(images,divTable=null,amount) {
     divTable = createDivTable(amount,'game-row','game-tile tile-medium');
   }
 
-  console.log("creating images");
   let backs=divTable.getElementsByClassName('back');
   let i=-1;
   for (let j = 0; back = backs[j]; j++) {
@@ -245,27 +236,27 @@ let amountPairs=0;
 function prePareGame(amount) {
   /* choosing random images from imageFolder */
   amountPairs = amount/2;
-  console.log("Getting "+amountPairs+" images");  
+    
   let imgs = getRandomImageSrc(amountPairs);
   imgs = imgs.concat(imgs); // create array with two of every image
   shuffleArray(imgs);
 
   /* prepares table. Adds images into it */
   let table = addImageDivTable(imgs,null,amount);
+  let container = document.createElement('div');
+  container.className = 'container';
 
   let gameTable = document.getElementById('gameTable')
   if(!!gameTable) {
-    console.log("gameTable exists!");
+    
     gameTable.parentNode.replaceChild(table,gameTable);
   }
   else {
-    console.log("gameTable exists not!");
-    console.log(document.getElementById('gameDiv'));
     document.getElementById('gameDiv').appendChild(table);
   }
 }
 
-
+/** handles start of game */
 function prepareInput() {
   let amount = parseInt(document.getElementById("amount").value);
 
@@ -280,5 +271,6 @@ function prepareInput() {
     alert("Not enough images on server to accomodate")
     return;
   }
+  pairedImgs = [];
   prePareGame(neededImages);
 }

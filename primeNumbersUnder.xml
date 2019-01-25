@@ -1,6 +1,9 @@
-<input type="number" id="numberOfPrimesInput">
-      <button onclick='findPrimes()'>findPrimes</button>
-      <table id='primeTable'>
+<form onsubmit='event.preventDefault(); findPrimes();'>
+      <input type="number" id="numberOfPrimesInput">
+      <input type='submit' value='Finn Primtøl'>
+</form>
 
-      </table>
-<div>count of primes: <span id='numberOfPrimes'></span></div>
+<div>Tal av primtølum: <span id='numberOfPrimes'></span></div>
+<table id='primeTable'>
+
+</table>

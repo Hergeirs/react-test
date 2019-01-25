@@ -1,6 +1,6 @@
 function onload () {
 	let nav = document.getElementsByTagName('nav')[0];
-	nav.addEventListener('click',handleNavAction,false);
+	nav.addEventListener('click',handleNavAction,true);
 }
 
 function handleNavAction(e) {
